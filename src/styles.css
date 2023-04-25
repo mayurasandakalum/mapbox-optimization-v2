@@ -1,0 +1,79 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#map1 {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+#categoryControl {
+  z-index: 10000;
+  position: absolute;
+  top: 100px;
+  left: 50px;
+}
+
+.problem-sheet {
+  z-index: 1000;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  bottom: 50px;
+  max-height: 100%;
+  overflow: auto;
+  width: 600px;
+}
+.problem-sheet > section {
+  padding: 12px !important;
+  height: 100%;
+  overflow: auto;
+}
+
+.search {
+  z-index: 999999;
+  position: absolute;
+  top: 100px;
+  left: 50px;
+}
+
+button.selected {
+  background: rgb(230, 55, 54);
+  color: white;
+}
+
+.coupon-slider {
+  background: lightgray;
+  padding: 16px;
+  z-index: 999999;
+  position: absolute;
+  top: 150px;
+  left: 50px;
+}
+
+.rc-slider {
+  width: 300px;
+}
+
+.search {
+  background: lightgray;
+  padding: 16px;
+  z-index: 999999;
+  position: absolute;
+  top: 0px;
+  left: 50px;
+}
+
+.mapboxgl-popup-content {
+  max-height: 500px;
+  width: 250px;
+  overflow: auto;
+}
