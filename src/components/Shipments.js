@@ -99,7 +99,7 @@ export const Shipments = ({
                   (1 - idx / shipmentGroups.ordered.length) * 255
                 ),
                 blue: 100,
-                alpha: 0.3,
+                alpha: 1,
               });
 
               console.log("hex", hex);

@@ -35,7 +35,7 @@ export const SolutionSheet = ({
         red: Math.floor((idx / arr.length) * 255),
         green: Math.floor((1 - idx / arr.length) * 255),
         blue: 100,
-        alpha: 0.5,
+        alpha: 1,
       });
 
       console.log("2hex", hex);

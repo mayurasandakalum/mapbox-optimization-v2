@@ -475,7 +475,7 @@ export const MapboxMap = ({
           red: Math.floor((idx / maxGroups) * 255),
           green: Math.floor((1 - idx / maxGroups) * 255),
           blue: 100,
-          alpha: 0.3,
+          alpha: 1,
         });
         return [v, hex];
       })
