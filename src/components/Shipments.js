@@ -1,8 +1,9 @@
 import Button from "@mapbox/mr-ui/button";
 import { useMemo, useState } from "react";
 import { CreateShipment } from "./CreateShipment";
+import { rgba } from "polished";
 
-import getColor from "number-to-color";
+// import getColor from "number-to-color";
 import { slaTimesToLabel } from "../util/slaLabel";
 import humanizeDuration from "humanize-duration";
 import { MyTable } from "./Table";
@@ -13,7 +14,7 @@ export const Shipments = ({
   setShipmentSelectedLocation,
   setShipments,
   shipments,
-  shipmentsLastUpdated
+  shipmentsLastUpdated,
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const closeModal = () => {
@@ -35,7 +36,7 @@ export const Shipments = ({
     const ordered = Object.keys(groupIdMap).sort((a, b) => a.localeCompare(b));
     return {
       groupIdMap,
-      ordered
+      ordered,
     };
   }, [shipmentsLastUpdated]);
 
@@ -86,12 +87,22 @@ export const Shipments = ({
               "Item Size",
               "Drop off duration",
               "Pick up duration",
-              "Requirements"
+              "Requirements",
             ]}
             rows={shipmentGroups.ordered.map((id, idx) => {
+              // const rgb = getColor(idx, shipmentGroups.ordered.length);
+              // const hex = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.3)`;
               const grp = shipmentGroups.groupIdMap[id];
-              const rgb = getColor(idx, shipmentGroups.ordered.length);
-              const hex = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.3)`;
+              const hex = rgba({
+                red: Math.floor((idx / shipmentGroups.ordered.length) * 255),
+                green: Math.floor(
+                  (1 - idx / shipmentGroups.ordered.length) * 255
+                ),
+                blue: 100,
+                alpha: 0.3,
+              });
+
+              console.log("hex", hex);
 
               return {
                 "Shipment Count": grp.length,
@@ -114,9 +125,9 @@ export const Shipments = ({
                 key: grp[0].groupId,
                 style: {
                   backgroundColor: hex,
-                  cursor: "pointer"
+                  cursor: "pointer",
                 },
-                onClick: () => onDeleteShipmentGroup(id)
+                onClick: () => onDeleteShipmentGroup(id),
               };
             })}
           />

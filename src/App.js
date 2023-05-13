@@ -1,6 +1,4 @@
 import "./styles.css";
-import ControlCard from "@mapbox/mr-ui/control-card";
-import Heading from "@mapbox/mr-ui/heading";
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 import React, {
@@ -244,7 +242,7 @@ export default function App() {
   return (
     <div>
       <div className="problem-sheet">
-        <ControlCard>
+        <Box sx={{ bgcolor: "white", height: "100%" }}>
           <div
             style={{
               flexDirection: "row",
@@ -303,7 +301,7 @@ export default function App() {
               vehiclesLastUpdated={vehiclesLastUpdated}
             />
           )}
-        </ControlCard>
+        </Box>
       </div>
       <MapboxMap
         appTab={appTab}

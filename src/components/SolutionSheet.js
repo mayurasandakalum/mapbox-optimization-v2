@@ -1,13 +1,14 @@
 import { useMemo } from "react";
 import { dateFmt } from "../util/dateFmt";
 import getColor from "number-to-color";
+import { rgba } from "polished";
 import { MyTable } from "./Table";
 
 export const SolutionSheet = ({
   selectedSolutionDeliveryVehicleId,
   setSelectedSolutionDeliveryVehicleId,
   solution,
-  vehiclesLastUpdated
+  vehiclesLastUpdated,
 }) => {
   const vehicles = solution.vehicles;
 
@@ -27,13 +28,22 @@ export const SolutionSheet = ({
       const startTime = firstStop ? dateFmt(firstStop.eta) : "";
       const endTime = lastStop ? dateFmt(lastStop.eta) : "";
 
-      const rgb = getColor(idx, arr.length);
-      const hex = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.3)`;
+      // const rgb = getColor(idx, arr.length);
+      // const hex = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.3)`;
+
+      const hex = rgba({
+        red: Math.floor((idx / arr.length) * 255),
+        green: Math.floor((1 - idx / arr.length) * 255),
+        blue: 100,
+        alpha: 0.5,
+      });
+
+      console.log("2hex", hex);
       return {
         ...r,
         startTime,
         endTime,
-        hex
+        hex,
       };
     });
   }, [solution.id]);
@@ -64,6 +74,8 @@ export const SolutionSheet = ({
               ? r.hex
               : "";
 
+          console.log("color", color);
+
           return {
             Vehicle: idx + 1,
             "# of Stops": r.stops.length,
@@ -78,9 +90,9 @@ export const SolutionSheet = ({
               cursor: "pointer",
               height: "100%",
               width: "50px",
-              backgroundColor: color
+              backgroundColor: color,
             },
-            key: r.vehicle
+            key: r.vehicle,
           };
         })
         .concat(
@@ -99,11 +111,11 @@ export const SolutionSheet = ({
                 "End Time": "n/a",
                 Capacity: v.capacities ? v.capacities.volume : "n/a",
                 key: v.name,
-                style: {}
+                style: {},
               });
               return {
                 idx: newIdx,
-                items: p.items
+                items: p.items,
               };
             },
             { idx: 0, items: [] }

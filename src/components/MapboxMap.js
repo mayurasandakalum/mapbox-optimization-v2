@@ -8,6 +8,7 @@ import polyline from "@mapbox/polyline";
 import { featureTodeliveryLocationPopup } from "../util/featureTodeliveryLocationPopup";
 import { stringToDate } from "../util/stringToDate";
 import { featureToShowShipmentPopup } from "../util/featureToshowShipmentPopup";
+import { rgba } from "polished";
 
 const initCenter = [106.8, -6.208];
 const initZoom = 12;
@@ -469,8 +470,14 @@ export const MapboxMap = ({
     const maxGroups = groupIdsSorted.length;
     const colors = flatten(
       groupIdsSorted.map((v, idx) => {
-        const rgb = getColor(idx, maxGroups);
-        return [v, rgbToHex(rgb.r, rgb.g, rgb.b)];
+        // const rgb = getColor(idx, maxGroups);
+        const hex = rgba({
+          red: Math.floor((idx / maxGroups) * 255),
+          green: Math.floor((1 - idx / maxGroups) * 255),
+          blue: 100,
+          alpha: 0.3,
+        });
+        return [v, hex];
       })
     );
 
@@ -732,8 +739,14 @@ export const MapboxMap = ({
 
     const colors = flatten(
       solution.solution.routes.map((v, idx) => {
-        const rgb = getColor(idx, solution.solution.routes.length);
-        return [v.vehicle, rgbToHex(rgb.r, rgb.g, rgb.b)];
+        const rgb = rgba({
+          red: Math.floor((idx / solution.solution.routes.length) * 255),
+          green: Math.floor((1 - idx / solution.solution.routes.length) * 255),
+          blue: 100,
+          alpha: 1,
+        });
+
+        return [v.vehicle, rgb];
       })
     );
     const lineColor =
