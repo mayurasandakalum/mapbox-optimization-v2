@@ -9,6 +9,9 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useMemo, useState } from "react";
 import Button from "@mapbox/mr-ui/button";
+import Buttons from "@mui/material/Button";
+import { Grid, TextField } from "@mui/material";
+import { useEffect } from "react";
 
 const modalStyle = {
   position: "absolute",
@@ -38,24 +41,36 @@ export const Locations = ({
   const [editLocationModalOpen, setEditLocationModalOpen] = useState(false);
   const [editingLocation, setEditingLocation] = useState(null);
 
-  const onAddLocations = (value) => {
-    if (value === "none") {
+  const [lat, setLat] = useState(null);
+  const [lng, setLng] = useState(null);
+  const [points, setPoints] = useState([]);
+
+  const handleAdd = () => {
+    setPoints([...points, { lat: parseFloat(lat), lng: parseFloat(lng) }]);
+  };
+
+  useEffect(() => {
+    onAddLocations(points);
+  }, [points]);
+
+  const onAddLocations = (pointValue) => {
+    if (pointValue === "none") {
       return;
     }
-    const numberToAdd = parseInt(value, 10);
-    console.log("numberToAdd", numberToAdd);
-    const points = randomPoint(numberToAdd, {
-      bbox: mapBbox,
-    });
-    randomPoint();
+    // const numberToAdd = parseInt(value, 10);
+    // console.log("numberToAdd", numberToAdd);
+    // const points = randomPoint(numberToAdd, {
+    //   bbox: mapBbox,
+    // });
+    // randomPoint();
 
     // console.log("bbox", mapBbox);
     // console.log("points", points);
 
-    const newLocations = points.features.map((p) =>
-      generateLocation(p.geometry.coordinates[0], p.geometry.coordinates[1])
-    );
+    const newLocations = pointValue.map((p) => generateLocation(p.lng, p.lat));
     setLocations(locations.concat(newLocations));
+
+    console.log("newLocations", newLocations);
   };
 
   const onStartLocationEdit = (l) => {
@@ -167,11 +182,11 @@ export const Locations = ({
   return (
     <div className="my6">
       <div>
-        <ControlSelect
+        {/* <ControlSelect
           id="add-location"
           label="Add Locations from map bounds"
           value="none"
-          onChange={onAddLocations}
+          onChange={() => {}}
           options={[
             {
               label: "Select One",
@@ -184,7 +199,28 @@ export const Locations = ({
                 value: (v + 1) * 10,
               })),
           ]}
-        />
+        /> */}
+        <Grid container direction={"row"} columnGap={4}>
+          <Grid item>
+            <TextField
+              label="Latitude"
+              value={lat}
+              onChange={(e) => setLat(e.target.value)}
+            />
+          </Grid>
+          <Grid item>
+            <TextField
+              label="Longitude"
+              value={lng}
+              onChange={(e) => setLng(e.target.value)}
+            />
+          </Grid>
+          <Grid item>
+            <Buttons variant="contained" disableElevation onClick={handleAdd}>
+              Add
+            </Buttons>
+          </Grid>
+        </Grid>
         <ControlSwitch
           id="delivery-sla"
           label="Use mock address"

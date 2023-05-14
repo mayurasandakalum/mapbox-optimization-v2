@@ -10,7 +10,7 @@ import { stringToDate } from "../util/stringToDate";
 import { featureToShowShipmentPopup } from "../util/featureToshowShipmentPopup";
 import { rgba } from "polished";
 
-const initCenter = [106.8, -6.208];
+const initCenter = [80.06172264297051, 7.463090917201895];
 const initZoom = 12;
 const pinLayer = "pins";
 const shipmentSrc = "shipment";
