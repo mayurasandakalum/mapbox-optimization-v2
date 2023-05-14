@@ -90,8 +90,6 @@ export const Shipments = ({
               "Requirements",
             ]}
             rows={shipmentGroups.ordered.map((id, idx) => {
-              // const rgb = getColor(idx, shipmentGroups.ordered.length);
-              // const hex = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.3)`;
               const grp = shipmentGroups.groupIdMap[id];
               const hex = rgba({
                 red: Math.floor((idx / shipmentGroups.ordered.length) * 255),
@@ -101,8 +99,6 @@ export const Shipments = ({
                 blue: 100,
                 alpha: 1,
               });
-
-              console.log("hex", hex);
 
               return {
                 "Shipment Count": grp.length,

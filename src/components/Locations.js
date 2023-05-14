@@ -1,6 +1,4 @@
-import ControlSelect from "@mapbox/mr-ui/control-select";
 import ControlSwitch from "@mapbox/mr-ui/control-switch";
-import { randomPoint } from "@turf/random";
 import { generateLocation } from "../util/geenrateLocation";
 import { MyTable } from "./Table";
 import ControlText from "@mapbox/mr-ui/control-text";
@@ -41,35 +39,29 @@ export const Locations = ({
   const [editLocationModalOpen, setEditLocationModalOpen] = useState(false);
   const [editingLocation, setEditingLocation] = useState(null);
 
-  const [lat, setLat] = useState(null);
-  const [lng, setLng] = useState(null);
-  const [points, setPoints] = useState([]);
+  const [lat, setLat] = useState("");
+  const [lng, setLng] = useState("");
+  const [points, setPoints] = useState(null);
 
   const handleAdd = () => {
-    setPoints([...points, { lat: parseFloat(lat), lng: parseFloat(lng) }]);
+    setPoints({ lat: parseFloat(lat), lng: parseFloat(lng) });
+    setLat("");
+    setLng("");
   };
 
   useEffect(() => {
     onAddLocations(points);
+    console.log("onAddLocations");
   }, [points]);
 
   const onAddLocations = (pointValue) => {
-    if (pointValue === "none") {
+    console.log("pointValue", pointValue);
+    if (pointValue === null) {
       return;
     }
-    // const numberToAdd = parseInt(value, 10);
-    // console.log("numberToAdd", numberToAdd);
-    // const points = randomPoint(numberToAdd, {
-    //   bbox: mapBbox,
-    // });
-    // randomPoint();
 
-    // console.log("bbox", mapBbox);
-    // console.log("points", points);
-
-    const newLocations = pointValue.map((p) => generateLocation(p.lng, p.lat));
+    const newLocations = generateLocation(pointValue.lng, pointValue.lat);
     setLocations(locations.concat(newLocations));
-
     console.log("newLocations", newLocations);
   };
 
@@ -182,24 +174,6 @@ export const Locations = ({
   return (
     <div className="my6">
       <div>
-        {/* <ControlSelect
-          id="add-location"
-          label="Add Locations from map bounds"
-          value="none"
-          onChange={() => {}}
-          options={[
-            {
-              label: "Select One",
-              value: "none",
-            },
-            ...Array(10)
-              .fill(null)
-              .map((_, v) => ({
-                label: `add ${(v + 1) * 10} locations`,
-                value: (v + 1) * 10,
-              })),
-          ]}
-        /> */}
         <Grid container direction={"row"} columnGap={4}>
           <Grid item>
             <TextField

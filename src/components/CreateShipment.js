@@ -14,7 +14,7 @@ export const CreateShipment = ({
   onCreate,
   shipments,
   shipmentsLastUpdated,
-  setShipmentSelectedLocation
+  setShipmentSelectedLocation,
 }) => {
   const [fromLocationType, _setFromLocationType] = useState("");
   const [toLocationType, setToLocationType] = useState("");
@@ -25,13 +25,11 @@ export const CreateShipment = ({
   const [pickupDurationNotNumber, setPickupDurationNotNumber] = useState(false);
   const [enableDropoffDuration, setEnableDropoffDuration] = useState(false);
   const [dropoffDuration, setDropoffDuration] = useState(0);
-  const [dropoffDurationNotNumber, setDropoffDurationNotNumber] = useState(
-    false
-  );
+  const [dropoffDurationNotNumber, setDropoffDurationNotNumber] =
+    useState(false);
   const [enableDeliveryDropoff, setEnableDeliveryDropoff] = useState(false);
-  const [deliveryEarliestDropoff, setDeliveryEarliestDropoff] = useState(
-    "08:00"
-  );
+  const [deliveryEarliestDropoff, setDeliveryEarliestDropoff] =
+    useState("08:00");
   const [deliveryLatestDropoff, setDeliveryLatestDropoff] = useState("18:00");
   const [enableDeliveryPickup, setEnableDeliveryPickup] = useState(false);
   const [deliveryEarliestPickup, setDeliveryEarliestPickup] = useState("09:00");
@@ -106,8 +104,8 @@ export const CreateShipment = ({
           {
             earliest: date.substring(0, 11) + deliveryEarliestPickup + ":00Z",
             latest: date.substring(0, 11) + deliveryLatestPickup + ":00Z",
-            type: "strict"
-          }
+            type: "strict",
+          },
         ]
       : undefined;
     const dropoffTimes = dropoffSLAExists
@@ -115,8 +113,8 @@ export const CreateShipment = ({
           {
             earliest: date.substring(0, 11) + deliveryEarliestDropoff + ":00Z",
             latest: date.substring(0, 11) + deliveryLatestDropoff + ":00Z",
-            type: "strict"
-          }
+            type: "strict",
+          },
         ]
       : undefined;
 
@@ -137,7 +135,7 @@ export const CreateShipment = ({
           pickup_duration: pickupDuration,
           requirements,
           size,
-          to: to.name
+          to: to.name,
         });
         return p;
       }, []);
@@ -150,7 +148,7 @@ export const CreateShipment = ({
     _setFromLocationType(value);
     setShipmentSelectedLocation({
       type: value,
-      locations: value === "custom-locations" ? fromLocations : []
+      locations: value === "custom-locations" ? fromLocations : [],
     });
   };
 
@@ -158,21 +156,21 @@ export const CreateShipment = ({
     return locations.map((v) => ({
       ...v,
       label: v.name,
-      value: v.id
+      value: v.id,
     }));
   }, [locations.length]);
 
   const setFromMultiSelectedOption = (val) => {
     setShipmentSelectedLocation({
       type: fromLocationType,
-      locations: fromLocationType === "custom-locations" ? val : []
+      locations: fromLocationType === "custom-locations" ? val : [],
     });
     setFromLocations(val);
   };
   const setToMultiSelectedOption = (val) => {
     setShipmentSelectedLocation({
       type: toLocationType,
-      locations: toLocationType === "custom-locations" ? val : []
+      locations: toLocationType === "custom-locations" ? val : [],
     });
     setToLocations(val);
   };
@@ -218,20 +216,20 @@ export const CreateShipment = ({
           options={[
             {
               label: "Select One",
-              value: ""
+              value: "",
             },
             {
               label: "Custom Locations",
-              value: "custom-locations"
+              value: "custom-locations",
             },
             {
               label: "Locations w/o Shipments",
-              value: "locations-wo-shipments"
+              value: "locations-wo-shipments",
             },
             {
               label: "Locations w/o Shipments and Serivces",
-              value: "locations-wo-shipments-and-services"
-            }
+              value: "locations-wo-shipments-and-services",
+            },
           ]}
         />
         {showFromLocations()}
@@ -245,20 +243,20 @@ export const CreateShipment = ({
           options={[
             {
               label: "Select One",
-              value: ""
+              value: "",
             },
             {
               label: "Custom Locations",
-              value: "custom-locations"
+              value: "custom-locations",
             },
             {
               label: "Locations w/o Shipments",
-              value: "locations-wo-shipments"
+              value: "locations-wo-shipments",
             },
             {
               label: "Locations w/o Shipments and Serivces",
-              value: "locations-wo-shipments-and-services"
-            }
+              value: "locations-wo-shipments-and-services",
+            },
           ]}
         />
         {showToLocations()}
