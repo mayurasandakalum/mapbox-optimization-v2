@@ -41,17 +41,22 @@ export const Locations = ({
 
   const [lat, setLat] = useState("");
   const [lng, setLng] = useState("");
+  const [customerName, setCustomerName] = useState("");
   const [points, setPoints] = useState(null);
 
   const handleAdd = () => {
-    setPoints({ lat: parseFloat(lat), lng: parseFloat(lng) });
+    setPoints({
+      lat: parseFloat(lat),
+      lng: parseFloat(lng),
+      customerName: customerName,
+    });
     setLat("");
     setLng("");
+    setCustomerName("");
   };
 
   useEffect(() => {
     onAddLocations(points);
-    console.log("onAddLocations");
   }, [points]);
 
   const onAddLocations = (pointValue) => {
@@ -60,9 +65,13 @@ export const Locations = ({
       return;
     }
 
-    const newLocations = generateLocation(pointValue.lng, pointValue.lat);
+    const newLocations = generateLocation(
+      pointValue.lng,
+      pointValue.lat,
+      pointValue.customerName
+    );
+    console.log("newLocations: ", newLocations);
     setLocations(locations.concat(newLocations));
-    console.log("newLocations", newLocations);
   };
 
   const onStartLocationEdit = (l) => {
@@ -174,7 +183,14 @@ export const Locations = ({
   return (
     <div className="my6">
       <div>
-        <Grid container direction={"row"} columnGap={4}>
+        <Grid
+          container
+          direction={"row"}
+          columnSpacing={4}
+          rowSpacing={2}
+          sx={{ width: "100%" }}
+          justifyContent="center"
+        >
           <Grid item>
             <TextField
               label="Latitude"
@@ -190,17 +206,29 @@ export const Locations = ({
             />
           </Grid>
           <Grid item>
-            <Buttons variant="contained" disableElevation onClick={handleAdd}>
+            <TextField
+              label="Customer Name"
+              value={customerName}
+              onChange={(e) => setCustomerName(e.target.value)}
+            />
+          </Grid>
+          <Grid item>
+            <Buttons
+              variant="contained"
+              disableElevation
+              onClick={handleAdd}
+              sx={{ width: "210px", height: "40px", mt: "6px" }}
+            >
               Add
             </Buttons>
           </Grid>
         </Grid>
-        <ControlSwitch
+        {/* <ControlSwitch
           id="delivery-sla"
           label="Use mock address"
           onChange={setUseFakeNames}
           value={useFakeNames}
-        />
+        /> */}
       </div>
       {locations.length > 0 && (
         <>

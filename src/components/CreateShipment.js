@@ -179,6 +179,7 @@ export const CreateShipment = ({
     if (fromLocationType !== "custom-locations") {
       return;
     }
+    console.log("fromLocations", fromLocations);
     return (
       <Select
         isMulti

@@ -70,8 +70,8 @@ export default function App() {
       const res = fetch(
         `https://api.mapbox.com/geocoding/v5/mapbox.places/${key}.json?types=address%2Cdistrict%2Clocality&limit=1&access_token=${token}`
       ).then((res) => res.json());
-      console.log("res", res);
       p.push(res);
+      console.log("res", p);
       return p;
     }, []);
 
@@ -121,12 +121,17 @@ export default function App() {
     return newLocationObj.items;
   };
   const setLocations = async (locations) => {
-    console.log("setLocations", locations);
+    console.log("setLocations", locations[locations.length - 1].name);
     let newLocations = locations;
     if (!useFakeNames) {
       newLocations = await geocodeLocations(newLocations);
     }
-    // console.log("newLocations", newLocations);
+    newLocations[newLocations.length - 1].name =
+      locations[locations.length - 1].name;
+    console.log(
+      "newLocations",
+      JSON.stringify(newLocations[newLocations.length - 1].name)
+    );
     _setLocations(newLocations);
     // so that child components can watch this value instead of the entire array of objects
     setLocationLastUpdated(new Date().getTime());

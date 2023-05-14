@@ -3,11 +3,11 @@ import Fakerator from "fakerator";
 
 var fakerator = Fakerator("en-US");
 
-export const generateLocation = (lng, lat) => {
+export const generateLocation = (lng, lat, name) => {
   return {
     id: uuidv4(),
-    name: fakerator.address.street(),
+    name: name,
     coordinates: [lng, lat],
-    type: "location"
+    type: "location",
   };
 };
