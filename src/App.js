@@ -52,6 +52,11 @@ export default function App() {
   const [locationLastUpdated, setLocationLastUpdated] = useState(
     new Date().getTime()
   );
+
+  useEffect(() => {
+    console.log("locations", locations);
+  }, [locations]);
+
   const latlngkey = (coords) => {
     return coords[0] + "," + coords[1];
   };
@@ -61,9 +66,11 @@ export default function App() {
         return p;
       }
       const key = latlngkey(c.coordinates);
+      console.log("key", key);
       const res = fetch(
         `https://api.mapbox.com/geocoding/v5/mapbox.places/${key}.json?types=address%2Cdistrict%2Clocality&limit=1&access_token=${token}`
       ).then((res) => res.json());
+      console.log("res", res);
       p.push(res);
       return p;
     }, []);
@@ -79,7 +86,7 @@ export default function App() {
       return p;
     }, {});
 
-    console.log("latlngkreyresult, ", latlngkeyResult);
+    // console.log("latlngkreyresult, ", latlngkeyResult);
     const newlocationsWithDuplicates = locations.map((l) => {
       if (l.geocoded) {
         return l;
@@ -119,7 +126,7 @@ export default function App() {
     if (!useFakeNames) {
       newLocations = await geocodeLocations(newLocations);
     }
-    console.log("newLocations", newLocations);
+    // console.log("newLocations", newLocations);
     _setLocations(newLocations);
     // so that child components can watch this value instead of the entire array of objects
     setLocationLastUpdated(new Date().getTime());
@@ -148,7 +155,7 @@ export default function App() {
   };
 
   const [solution, setSolution] = useState(emptySolution);
-  console.log("locations", locations);
+  // console.log("locations", locations);
   // const [locations, setLocations] = useState(mockLocations2);
   // const [shipments, setShipments] = useState(mockShipments2);
   // const [vehicles, setVehicles] = useState(mockVehicles2);
@@ -171,6 +178,7 @@ export default function App() {
       if (appTab === "problem" && problemTab === "locations") {
         // add a new pin
         const location = generateLocation(lnglat.lng, lnglat.lat);
+        // console.log("generate location", location);
         setLocations(locationsRef.current.concat([location]));
       }
     },

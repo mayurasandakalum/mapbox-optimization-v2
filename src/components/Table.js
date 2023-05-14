@@ -10,17 +10,17 @@ import IconButton from "@mui/material/IconButton";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
+// function createData(name, calories, fat, carbs, protein) {
+//   return { name, calories, fat, carbs, protein };
+// }
 
-const rows = [
-  createData(3, "08:00 - 18:00", "09:00 - 18:00", 24, 4.0),
-  createData(4, "08:00 - 18:00", "09:00 - 18:00", 37, 4.3),
-  createData(5, "08:00 - 18:00", "09:00 - 18:00", 24, 6.0),
-  createData(5, "08:00 - 18:00", "09:00 - 18:00", 67, 4.3),
-  createData(5, "08:00 - 18:00", "09:00 - 18:00", 49, 3.9)
-];
+// const rows = [
+//   createData(3, "08:00 - 18:00", "09:00 - 18:00", 24, 4.0),
+//   createData(4, "08:00 - 18:00", "09:00 - 18:00", 37, 4.3),
+//   createData(5, "08:00 - 18:00", "09:00 - 18:00", 24, 6.0),
+//   createData(5, "08:00 - 18:00", "09:00 - 18:00", 67, 4.3),
+//   createData(5, "08:00 - 18:00", "09:00 - 18:00", 49, 3.9)
+// ];
 
 export const MyTable = ({ rows, headers }) => {
   return (
