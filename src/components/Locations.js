@@ -18,7 +18,7 @@ const modalStyle = {
   width: 400,
   bgcolor: "background.paper",
   border: "2px solid #000",
-  p: 4
+  p: 4,
 };
 
 export const Locations = ({
@@ -32,25 +32,32 @@ export const Locations = ({
   setUseFakeNames,
   useFakeNames,
   vehicles,
-  vehiclesLastUpdated
+  vehiclesLastUpdated,
 }) => {
   const [editNameTo, setEditNameTo] = useState("");
   const [editLocationModalOpen, setEditLocationModalOpen] = useState(false);
   const [editingLocation, setEditingLocation] = useState(null);
+
   const onAddLocations = (value) => {
     if (value === "none") {
       return;
     }
     const numberToAdd = parseInt(value, 10);
+    console.log("numberToAdd", numberToAdd);
     const points = randomPoint(numberToAdd, {
-      bbox: mapBbox
+      bbox: mapBbox,
     });
+    randomPoint();
+
+    // console.log("bbox", mapBbox);
+    // console.log("points", points);
 
     const newLocations = points.features.map((p) =>
       generateLocation(p.geometry.coordinates[0], p.geometry.coordinates[1])
     );
     setLocations(locations.concat(newLocations));
   };
+
   const onStartLocationEdit = (l) => {
     setEditingLocation(l);
     setEditLocationModalOpen(true);
@@ -79,7 +86,7 @@ export const Locations = ({
         return {
           ...v,
           from: newFrom,
-          to: newTo
+          to: newTo,
         };
       });
       setShipments(newShipments);
@@ -102,7 +109,7 @@ export const Locations = ({
         return {
           ...v,
           start_location: newStart,
-          end_location: newEnd
+          end_location: newEnd,
         };
       });
       setVehicles(newVehicles);
@@ -115,7 +122,7 @@ export const Locations = ({
       }
       return {
         ...v,
-        name: editNameTo
+        name: editNameTo,
       };
     });
     setLocations(newlocations);
@@ -168,14 +175,14 @@ export const Locations = ({
           options={[
             {
               label: "Select One",
-              value: "none"
+              value: "none",
             },
             ...Array(10)
               .fill(null)
               .map((_, v) => ({
                 label: `add ${(v + 1) * 10} locations`,
-                value: (v + 1) * 10
-              }))
+                value: (v + 1) * 10,
+              })),
           ]}
         />
         <ControlSwitch
@@ -192,7 +199,7 @@ export const Locations = ({
               "Name",
               "Shipments Attached",
               "Vechicles Start",
-              "Vehicles End"
+              "Vehicles End",
             ]}
             rows={locations.map((l, idx) => {
               const shipments = shipmentsPerLocation[l.name] || 0;
@@ -206,8 +213,8 @@ export const Locations = ({
                 "Vechicles Start": vehiclesStart,
                 "Vehicles End": vehiclesEnd,
                 style: {
-                  cursor: "pointer"
-                }
+                  cursor: "pointer",
+                },
               };
             })}
           />
